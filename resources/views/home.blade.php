@@ -1,5 +1,5 @@
 @extends('layouts.main')
 
 @section('container')
-    <h1>Hello, world!</h1>
+    <h1>Welcome!</h1>
 @endsection

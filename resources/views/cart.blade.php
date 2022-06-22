@@ -1,8 +1,8 @@
-@extends('dashboard.layouts.main')
+@extends('layouts.main')
 
 @section('container')
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">My carts</h1>
+    <h1 class="h2">My cart</h1>
 </div>
 
 @if(session()->has('success'))
@@ -10,25 +10,24 @@
                 {{ session('success') }}
             </div>
 @endif
-
+@if ( $cart->count() )
 <div class="container">
     <div class="row">
-    <div class="col col-md-8">
+    <div class="table-responsive col-lg-8">
 
         <div class="card">
         <div class="card-header">
             Item
         </div>
         <div class="card-body">
-        <table class="table table-stripped">
+        <table class="table table-stripped table-sm">
             <thead>
             <tr>
-                <th>No</th>
-                <th>image</th>
-                <th>product</th>
-                <th>price</th>
-                <th>Qty</th>
-                <th>Subtotal</th>
+                <th scope="col">No</th>
+                <th scope="col">product</th>
+                <th scope="col">price</th>
+                <th scope="col">Qty</th>
+                <th scope="col">Subtotal</th>
             </tr>
             </thead>
             <tbody>
@@ -36,14 +35,6 @@
             <tr>
                 <td>
                 {{ $loop->iteration }}
-                </td>
-
-                <td>
-                @if($item->image)
-                        <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->image }}" class="img-fluid">
-                    @else
-                        <img src="https://source.unsplash.com/150x100?{{ $item->name }}" class="card-img-top" alt="{{ $item->name }}">
-                    @endif
                 </td>
                 <td>
                 {{ $item->name }}
@@ -78,7 +69,7 @@
                 {{ $item->subtotal }}
                 </td>
                 <td>
-                <form action="/dashboard/cart/{{ $item->id }}" method="post" class="d-inline">
+                <form action="/cart/{{ $item->id }}" method="post" class="d-inline">
                     @method('delete')
                     @csrf
                     <button type="submit" class="btn btn-sm btn-danger mb-2">
@@ -92,6 +83,7 @@
             </table>
         </div>
         </div>
+
     </div>
     <div class="col col-md-4">
         <div class="card">
@@ -101,6 +93,19 @@
         <div class="card-body">
             <table class="table">
 
+            <tr>
+                <td>No. Meja</td>
+                <form action="/orders" method="POST" enctype="multipart/form-data">
+                @csrf
+                <td>
+                    <input type="number" class="form-control @error('table') is-invalid @enderror" id="table" name="table" value="{{ old('table') }}" style="width:70px" required>
+                    @error('table')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </td>
+            </tr>
             <tr>
                 <td>Total Qty</td>
                 <td class="text-right">
@@ -119,15 +124,18 @@
 
             <tr>
                 <td>Total</td>
-
                 <td class="text-right">
                 <!-- Fungsi Hitung Total -->
                 <?php
                 $total = 0;
+                $name = '|';
                 foreach ($cart as $item) {
                     $nilai=$item->subtotal;
                     $total = $total + $nilai;
+                    $name = $name. ' '. $item->name . ' |';   
+
                 }
+
                 ?>
                 <!-- Tampilkan Nilai total -->
                 <?php echo($total); ?>
@@ -138,14 +146,14 @@
         <div class="card-footer">
             <div class="row">
             <div class="col">
-            <form action="/dashboard/orders" method="POST" enctype="multipart/form-data">
-            @csrf
-                <input type="text" value="{{ $item->id }}" name="cart_id">
-                <input type="text" value="waiting" name="status">
-                <input type="text" value="<?php echo($jumlah); ?>" name="quantity">
-                <input type="text" value="<?php echo($total); ?>" name="total">
-                <input type="text" value="<?php echo(date("d-M-Y")); ?>" name="date">
-                <input type="text" value="<?php echo(date("H:i")); ?>" name="time">
+            
+                <input type="hidden" value="{{ $item->id }}" name="cart_id">
+                <input type="hidden" value="waiting" name="status">
+                <input type="hidden" value="<?php echo($name); ?>" name="list">
+                <input type="hidden" value="<?php echo($jumlah); ?>" name="quantity">
+                <input type="hidden" value="<?php echo($total); ?>" name="total">
+                <input type="hidden" value="<?php echo(date("d-M-Y")); ?>" name="date">
+                <input type="hidden" value="<?php echo(date("H:i")); ?>" name="time">
 
                 <button class="btn btn-primary btn-block">Checkout</button>
             </form>
@@ -156,5 +164,8 @@
     </div>
     </div>
 </div>
+@else
+    <p class="text-center fs-4">Cart Kosong</p>
+@endif
 
 @endsection

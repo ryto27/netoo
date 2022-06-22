@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/style.css">
 
     
-    <title>{{ $title }} | netto</title>
+    <title>{{ $title }} | netoo</title>
 </head>
 <body>
 

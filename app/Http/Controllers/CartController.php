@@ -10,8 +10,10 @@ class CartController extends Controller
 {
     public function index()
     {
-        return view( 'dashboard.cart.index',[
-            'cart' => Cart::where( 'user_id', auth()->user()->id)->get()
+        return view( '/cart',[
+            'active' => 'cart',
+            'title' => 'cart',
+            'cart' => Cart::where('user_id', auth()->user()->id)->get()
         ]);
     }
 
@@ -30,7 +32,7 @@ class CartController extends Controller
 
             $validatedData['user_id'] = auth()->user()->id;
             Cart::create($validatedData);
-            return redirect('/dashboard/products')->with('success', 'Added to cart!');
+            return redirect('/products')->with('success', 'Added to cart!');
     }
 
     public function update(Request $request, $id)
@@ -42,14 +44,14 @@ class CartController extends Controller
             // update cart
             $qty = 1;
             $itemdetail->updatejumlah($itemdetail, $qty, $itemdetail->price);
-            return back()->with('success', 'Item berhasil diupdate');
+            return back()->with('success');
         }
 
         if ($param == 'kurang') {
             // update cart
             $qty = 1;
             $itemdetail->updatejumlah($itemdetail, '-'.$qty, $itemdetail->price);
-            return back()->with('success', 'Item berhasil diupdate');
+            return back()->with('success');
         }
 
     }
@@ -59,13 +61,12 @@ class CartController extends Controller
 
         Cart::destroy($cart->id);
         
-        return redirect('/dashboard/cart')->with('success', 'item has been removed.');
+        return redirect('/cart')->with('success', 'item has been removed.');
     }
 
     public function kosongkan($id) {
         $itemcart = Cart::findOrFail($id);
         $itemcart->cart()->delete();//hapus semua item di cart detail
-        $itemcart->updatetotal($itemcart, '-'.$itemcart->subtotal);
         return back()->with('success', 'Cart berhasil dikosongkan');
     }
 }

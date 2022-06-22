@@ -8,7 +8,10 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Cart;
-use App\Models\CartDetail;
+use App\Models\Table;
+use App\Models\Order;
+use App\Models\OrderDetail;
+
 
 
 
@@ -30,6 +33,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'ryto@gmail.com',
             'password' => bcrypt('password'),
             'role' => 'admin'
+        ]);
+
+        User::create([
+            'name' => 'Ryan',
+            'username' => 'ryan',
+            'email' => 'ryan@gmail.com',
+            'password' => bcrypt('password'),
+            'role' => 'user'
         ]);
 
         User::factory(3)->create();
@@ -81,6 +92,29 @@ class DatabaseSeeder extends Seeder
             'category_id' => 2
         ]);
 
+        Product::create([
+            'name' => 'Teh',
+            'description' => 'ngeteh',
+            'price' => 3000,
+            'user_id' => 4,
+            'category_id' => 2
+        ]);
+
+        Product::create([
+            'name' => 'Susu',
+            'description' => 'Banyu Putih.',
+            'price' => 5000,
+            'user_id' => 4,
+            'category_id' => 2
+        ]);
+        Product::create([
+            'name' => 'Bakso',
+            'description' => 'Kedok intel',
+            'price' => 10000,
+            'user_id' => 4,
+            'category_id' => 1
+        ]);
+
 
         Cart::create([
             'user_id' => 4,
@@ -92,6 +126,40 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
+        Order::create([
+            'user_id' => 1,
+            'cart_id' => 2,
+            'table' => 1,
+            'status' => 'waiting',
+            'list' => 'Mi | Sega | Bakso',
+            'quantity' => 3,
+            'total' => 20000,
+            'date' => '16-Jun-2022',
+            'time' => '23:00',
+        ]);
+
+        OrderDetail::create([
+            'order_id' => 1,
+            'item' => 'Nasi',
+            'Quantity' => 1
+        ]);
+        OrderDetail::create([
+            'order_id' => 1,
+            'item' => 'Kopi Gudey',
+            'Quantity' => 1
+        ]);
+        OrderDetail::create([
+            'order_id' => 1,
+            'item' => 'Bakso',
+            'Quantity' => 1
+        ]);
+
+
+        Table::create([
+            'user_id' => 1,
+            'status' => 'occupied',
+            'number' => 1
+        ]);
 
         Post::factory(20)->create();
 

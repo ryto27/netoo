@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderDetail;
+
 
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class DashboardOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +17,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $title = '';
 
-        return view( '/orders',[
-            "title" => "My Order" . $title,
-            "active" => "orders",
-            'orders' => Order::where( 'user_id', auth()->user()->id)->get()
+        return view( 'dashboard.orders.index',[
+            'orders' => Order::all(),
+            'details' =>OrderDetail::all()
         ]);
     }
 
@@ -44,8 +44,6 @@ class OrderController extends Controller
     {
         $validatedData = $request->validate([
             'cart_id' => 'required',
-            'table' => 'required',
-            'list' => 'required',
             'status' => 'required',
             'quantity' => 'required',
             'total' => 'required',
@@ -55,7 +53,7 @@ class OrderController extends Controller
 
         $validatedData['user_id'] = auth()->user()->id;
         Order::create($validatedData);
-        return redirect('/orders')->with('success', 'Order created!');
+        return redirect('/cart')->with('success', 'Order created!');
     }
 
     /**
@@ -66,7 +64,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('dashboard.orders.show', [
+            'details' => OrderDetail::where('order_id', $order->id)->get()
+        ]);
     }
 
     /**
@@ -89,7 +89,15 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $rules =[
+            'status' => 'required',
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        Order::where('id', $order->id)->update($validatedData);
+
+        return redirect('/dashboard/orders')->with('success', 'Order has been confirmed!');
     }
 
     /**
@@ -102,6 +110,6 @@ class OrderController extends Controller
     {
         Order::destroy($order->id);
         
-        return redirect('/orders')->with('success', 'item has been removed.');
+        return redirect('/dashboard/orders')->with('success', 'item has been removed.');
     }
 }

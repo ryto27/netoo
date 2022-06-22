@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
-
+use App\Models\Table;
 use Illuminate\Http\Request;
 
-class OrderController extends Controller
+class TableController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +14,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $title = '';
-
-        return view( '/orders',[
-            "title" => "My Order" . $title,
-            "active" => "orders",
-            'orders' => Order::where( 'user_id', auth()->user()->id)->get()
+        return view( 'dashboard.tables.index',[
+            'tables' => Table::where( 'user_id', auth()->user()->id)->get()
         ]);
     }
 
@@ -31,7 +26,8 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view( 'dashboard.tables.create',[
+        ]);
     }
 
     /**
@@ -42,29 +38,26 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
         $validatedData = $request->validate([
-            'cart_id' => 'required',
-            'table' => 'required',
-            'list' => 'required',
+            'number' => 'required',
             'status' => 'required',
-            'quantity' => 'required',
-            'total' => 'required',
-            'date' => 'required',
-            'time' => 'required',
         ]);
 
         $validatedData['user_id'] = auth()->user()->id;
-        Order::create($validatedData);
-        return redirect('/orders')->with('success', 'Order created!');
+
+        Table::create($validatedData);
+
+        return redirect('/dashboard/tables')->with('success', 'New table has been added!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\table  $table
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(table $table)
     {
         //
     }
@@ -72,10 +65,10 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\table  $table
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
+    public function edit(table $table)
     {
         //
     }
@@ -84,10 +77,10 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\table  $table
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, table $table)
     {
         //
     }
@@ -95,13 +88,13 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\table  $table
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(Table $table)
     {
-        Order::destroy($order->id);
+        Table::destroy($table->id);
         
-        return redirect('/orders')->with('success', 'item has been removed.');
+        return redirect('/dashboard/tables')->with('success', 'Table has been deleted.');
     }
 }
