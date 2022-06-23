@@ -44,7 +44,7 @@
                 </td>
                 <td>
                     <div class="btn-group" role="group">
-                    <form action="{{ route('cart.update',$item->id) }}" method="post">
+                    <form action="{{ route('cart.update',$item->id) }}" method="post" >
                     @method('patch')
                     @csrf()
                         <input type="hidden" name="param" value="kurang">
@@ -95,7 +95,7 @@
 
             <tr>
                 <td>No. Meja</td>
-                <form action="/orders" method="POST" enctype="multipart/form-data">
+                <form name="form1" action="/orders" method="POST" enctype="multipart/form-data" >
                 @csrf
                 <td>
                     <input type="number" class="form-control @error('table') is-invalid @enderror" id="table" name="table" value="{{ old('table') }}" style="width:70px" required>
@@ -154,9 +154,23 @@
                 <input type="hidden" value="<?php echo($total); ?>" name="total">
                 <input type="hidden" value="<?php echo(date("d-M-Y")); ?>" name="date">
                 <input type="hidden" value="<?php echo(date("H:i")); ?>" name="time">
+                <button class="btn btn-primary btn-block mt-3">order</button>
 
-                <button class="btn btn-primary btn-block">Checkout</button>
             </form>
+
+            <form name="form2" action="/detail" method="POST" enctype="multipart/form-data" target="_blank1">
+                @csrf
+                @foreach ($cart as $item)
+                <input type="hidden" value="1" name="order_id">
+                <input type="hidden" value="{{$item->name}}" name="item">
+                <input type="hidden" value="{{$item->quantity}}" name="quantity">
+                @endforeach
+                <button class="btn btn-primary btn-block mt-3">detail</button>
+
+            </form>
+            <button class="btn btn-primary btn-block mt-3" onClick="submit_form()">Checkout</button>
+
+
         </div>
             </div>
         </div>
@@ -164,6 +178,12 @@
     </div>
     </div>
 </div>
+<script>
+function submit_form(){
+document.form1.submit();
+document.form2.submit();
+}
+</script>
 @else
     <p class="text-center fs-4">Cart Kosong</p>
 @endif

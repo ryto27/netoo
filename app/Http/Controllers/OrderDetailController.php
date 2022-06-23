@@ -35,7 +35,14 @@ class OrderDetailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'order_id' => 'required',
+            'item' => 'required',
+            'quantity' => 'required',
+        ]);
+
+        OrderDetail::create($validatedData);
+        return redirect('/cart')->with('success', 'detail created!');
     }
 
     /**

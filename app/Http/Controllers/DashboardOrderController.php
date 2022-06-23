@@ -17,10 +17,8 @@ class DashboardOrderController extends Controller
      */
     public function index()
     {
-
         return view( 'dashboard.orders.index',[
             'orders' => Order::all(),
-            'details' =>OrderDetail::all()
         ]);
     }
 
@@ -53,7 +51,7 @@ class DashboardOrderController extends Controller
 
         $validatedData['user_id'] = auth()->user()->id;
         Order::create($validatedData);
-        return redirect('/cart')->with('success', 'Order created!');
+        // return redirect('/cart')->with('success', 'Order created!');
     }
 
     /**

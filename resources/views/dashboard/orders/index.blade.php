@@ -30,14 +30,15 @@
                         </tr>
                         <tr>
                             <td>
-                            @foreach ($order->detail as $item)
-                            {{ $item->item }}<br>
-                            @endforeach
+                                @foreach ($order->detail as $item)
+                                {{ $item->item }}<br>
+                                @endforeach
                             </td>
+                            <td></td>
                             <td>
-                            @foreach ($order->detail as $item)
-                            {{ $item->quantity }}<br>
-                            @endforeach
+                                @foreach ($order->detail as $item)
+                                {{ $item->quantity }}<br>
+                                @endforeach
                             </td>
                         </tr>
                         <tr>

@@ -25,15 +25,23 @@
 
                     <div class="card-body">
                     <table class="table">
-                        <tr>
+                    <tr>
                             <td>Status</td>
                             <td>:</td>
                             <td>{{ $order->status }}</td>
                         </tr>
                         <tr>
-                            <td>Items</td>
-                            <td>:</td>
-                            <td>{{ $order->list }}</td>
+                            <td>
+                                @foreach ($order->detail as $item)
+                                {{ $item->item }}<br>
+                                @endforeach
+                            </td>
+                            <td></td>
+                            <td>
+                                @foreach ($order->detail as $item)
+                                {{ $item->quantity }}<br>
+                                @endforeach
+                            </td>
                         </tr>
                         <tr>
                             <td>Quantity</td>
@@ -48,9 +56,10 @@
                         <tr>
                             <td>
                             <form action="/orders/{{ $order->id }}" method="post" class="d-inline">
-                        @method('delete')
-                        @csrf
-                        <button class="btn btn-danger mb-3" onclick="return confirm('Are you sure you want to delete this?')">Delete   </button>                        </form>
+                                @method('delete')
+                                @csrf
+                                <button class="btn btn-danger mb-3" onclick="return confirm('Are you sure you want to delete this?')">Delete   </button>
+                            </form>
                             </td>
                         </tr>
                     </table>

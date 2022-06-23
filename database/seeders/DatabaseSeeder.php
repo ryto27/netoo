@@ -127,7 +127,7 @@ class DatabaseSeeder extends Seeder
 
 
         Order::create([
-            'user_id' => 1,
+            'user_id' => 4,
             'cart_id' => 2,
             'table' => 1,
             'status' => 'waiting',

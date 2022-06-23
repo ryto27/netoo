@@ -12,6 +12,7 @@ use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardOrderController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanController;
@@ -92,6 +93,7 @@ Route::resource('cart', CartController::class)->middleware('auth');
 
 Route::resource('/dashboard/orders', DashboardOrderController::class)->middleware('admin');
 Route::resource('/orders', OrderController::class)->middleware('auth');
+Route::resource('/detail', OrderDetailController::class)->middleware('auth');
 Route::get('/dashboard/orders/{id}', [OrderController::class, 'show']);
 
 Route::resource('/dashboard/tables', TableController::class)->middleware('auth');
