@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\DashboardOrderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
@@ -89,7 +90,9 @@ Route::resource('/dashboard/products', DashboardProductController::class)->middl
 
 Route::resource('/dashboard/cart', CartController::class)->middleware('auth');
 
-Route::resource('cart', CartController::class)->middleware('auth');
+Route::resource('/cart', CartController::class)->middleware('auth');
+Route::resource('/cartdetail', CartDetailController::class)->middleware('auth');
+Route::patch('/kosongkan/{id}', [CartController::class, 'kosongkan']);
 
 Route::resource('/dashboard/orders', DashboardOrderController::class)->middleware('admin');
 Route::resource('/orders', OrderController::class)->middleware('auth');

@@ -44,7 +44,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $dataOrder = $request->validate([
             'cart_id' => 'required',
             'table' => 'required',
             'list' => 'required',
@@ -54,9 +54,16 @@ class OrderController extends Controller
             'date' => 'required',
             'time' => 'required',
         ]);
+        $dataOrder['user_id'] = auth()->user()->id;
+        Order::create($dataOrder);
 
-        $validatedData['user_id'] = auth()->user()->id;
-        Order::create($validatedData);
+        $dataDetail = $request->validate([
+            'order_id' => 'required',
+            'item' => 'required',
+            'quantity' => 'required',
+        ]);
+        OrderDetail::create($dataDetail);
+
         return redirect('/orders')->with('success', 'Order created!');
     }
 

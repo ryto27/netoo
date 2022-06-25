@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\CartDetail;
 use App\Models\Table;
 use App\Models\Order;
 use App\Models\OrderDetail;
@@ -118,10 +119,25 @@ class DatabaseSeeder extends Seeder
 
         Cart::create([
             'user_id' => 4,
+            'status_cart' => 'cart',
+            'status_pembayaran' => 'belum',
+            'subtotal' => 8000,
+            'total' => 8000,
+        ]);
+
+        CartDetail::create([
+            'product_id' => 1,
+            'cart_id' => 1,
+            'qty' => 1,
+            'harga' => 5000,
+            'subtotal' => 5000,
+        ]);
+
+        CartDetail::create([
             'product_id' => 4,
-            'name' => 'Kopi Gudey',
-            'price' => 3000,
-            'quantity' => 1,
+            'cart_id' => 1,
+            'qty' => 1,
+            'harga' => 3000,
             'subtotal' => 3000,
         ]);
 

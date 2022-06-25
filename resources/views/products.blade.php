@@ -45,14 +45,9 @@
                         <p class="card-text">{{ $product->description }}</p>
                         <p class="card-text">{{ $product->price }}</p>
                     
-                    <form action="/cart" method="POST" enctype="multipart/form-data">
+                    <form action="/cartdetail" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{ $product->id }}" name="product_id">
-                        <input type="hidden" value="{{ $product->name }}" name="name">
-                        <input type="hidden" value="{{ $product->price }}" name="price">
-                        <input type="hidden" value="{{ $product->image }}" name="image">
-                        <input type="hidden" value="1" name="quantity">
-                        <input type="hidden" value="{{ $product->price }}" name="subtotal">
                         <button type="submit" class="btn btn-sm btn-info mb-2">Add to Cart</button>                      
                     </form>
                     </div>
