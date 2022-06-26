@@ -22,7 +22,7 @@
         </div>
     </div>
     @if(session()->has('success'))
-            <div class="alert alert-success col-lg-8" role="alert">
+            <div class="d-flex justify-content-center alert alert-success " role="alert">
                 {{ session('success') }}
             </div>
 @endif
@@ -48,7 +48,7 @@
                     <form action="/cartdetail" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" value="{{ $product->id }}" name="product_id">
-                        <button type="submit" class="btn btn-sm btn-info mb-2">Add to Cart</button>                      
+                        <button type="submit" class="btn btn-sm btn-primary mb-2">Add to Cart</button>                      
                     </form>
                     </div>
                 </div>

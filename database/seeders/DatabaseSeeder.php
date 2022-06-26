@@ -141,35 +141,10 @@ class DatabaseSeeder extends Seeder
             'subtotal' => 3000,
         ]);
 
-
         Order::create([
             'user_id' => 4,
-            'cart_id' => 2,
-            'table' => 1,
-            'status' => 'waiting',
-            'list' => 'Mi | Sega | Bakso',
-            'quantity' => 3,
-            'total' => 20000,
-            'date' => '16-Jun-2022',
-            'time' => '23:00',
+            'cart_id' => 1,
         ]);
-
-        OrderDetail::create([
-            'order_id' => 1,
-            'item' => 'Nasi',
-            'Quantity' => 1
-        ]);
-        OrderDetail::create([
-            'order_id' => 1,
-            'item' => 'Kopi Gudey',
-            'Quantity' => 1
-        ]);
-        OrderDetail::create([
-            'order_id' => 1,
-            'item' => 'Bakso',
-            'Quantity' => 1
-        ]);
-
 
         Table::create([
             'user_id' => 1,

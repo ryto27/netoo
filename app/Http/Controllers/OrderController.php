@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\Cart;
 
 
 use Illuminate\Http\Request;
@@ -17,13 +18,29 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $title = '';
-
-        return view( '/orders',[
-            "title" => "My Order" . $title,
-            "active" => "orders",
-            'orders' => Order::where( 'user_id', auth()->user()->id)->get()
-        ]);
+        $itemuser = auth()->user();
+        if ($itemuser->role == 'admin') {
+            // kalo admin maka menampilkan semua cart
+            $itemorder = Order::whereHas('cart', function($q) use ($itemuser) {
+                            $q->where('status_cart', 'checkout');
+                        })
+                        ->latest()
+                        ->get();
+                        
+        } else {
+            // kalo member maka menampilkan cart punyanya sendiri
+            $itemorder = Order::whereHas('cart', function($q) use ($itemuser) {
+                            $q->where('status_cart', 'checkout');
+                            $q->where('user_id', $itemuser->id);
+                        })
+                        ->latest()
+                        ->get();
+        }
+        $data = array('title' => 'My Order',
+                    'active' => 'orders',
+                    'itemorder' => $itemorder,
+                );
+        return view('/orders', $data);
     }
 
     /**
@@ -109,6 +126,15 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
+        $user = auth()->user(); //ambil data user yang login
+
+        //ambil data cart dengan id user dan status cart checkout
+        $cart = Cart::where('user_id', $user->id)
+                ->where('status_cart', 'checkout')
+                ->get();
+        //delete cart
+        Cart::destroy($cart);
+        //delete order
         Order::destroy($order->id);
         
         return redirect('/orders')->with('success', 'item has been removed.');

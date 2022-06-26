@@ -17,6 +17,8 @@ use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\TransaksiController;
+
 
 
 
@@ -105,3 +107,6 @@ Route::resource('/dashboard/tables', TableController::class)->middleware('auth')
 Route::get('laporan', [LaporanController::class, 'index']);
   // proses laporan
 Route::get('proseslaporan', [LaporanController::class, 'proses']);
+
+Route::resource('/dashboard/transaksi', TransaksiController::class);
+Route::patch('/checkout/{id}', [CartController::class, 'checkout']);

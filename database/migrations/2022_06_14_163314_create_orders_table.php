@@ -17,13 +17,6 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('cart_id');
-            $table->integer('table');// ada 2 yaitu waiting, confirmed
-            $table->string('status');// ada 2 yaitu waiting, confirmed
-            $table->string('list');
-            $table->integer('quantity');
-            $table->double('total')->default(0);
-            $table->string('date');
-            $table->string('time');
             $table->timestamps();
         });
     }

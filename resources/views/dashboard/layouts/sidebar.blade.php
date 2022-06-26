@@ -7,12 +7,12 @@
             Dashboard
         </a>
         </li>
-        <!-- <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link {{ Request::is('dashboard/posts*') ? 'active' : '' }}" href="/dashboard/posts">
                 <span data-feather="layers"></span>
                 My Posts
             </a>
-        </li> -->
+        </li>
         <li class="nav-item">
             <a class="nav-link {{ Request::is('dashboard/products*') ? 'active' : '' }}" href="/dashboard/products">
                 <span data-feather="grid"></span>
@@ -20,10 +20,10 @@
             </a>
             </li>
         <li class="nav-item">
-        <!-- <a class="nav-link {{ Request::is('dashboard/cart*') ? 'active' : '' }}" href="/dashboard/cart">
+        <a class="nav-link {{ Request::is('dashboard/transaksi*') ? 'active' : '' }}" href="/dashboard/transaksi">
             <span data-feather="shopping-cart"></span>
-            Carts
-        </a> -->
+            Transaksi
+        </a>
         </li>
         <li class="nav-item">
         <a class="nav-link {{ Request::is('dashboard/orders*') ? 'active' : '' }}" href="/dashboard/orders">
