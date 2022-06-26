@@ -96,7 +96,7 @@ Route::resource('/cart', CartController::class)->middleware('auth');
 Route::resource('/cartdetail', CartDetailController::class)->middleware('auth');
 Route::patch('/kosongkan/{id}', [CartController::class, 'kosongkan']);
 
-Route::resource('/dashboard/orders', DashboardOrderController::class)->middleware('admin');
+Route::resource('/dashboard/orders', OrderController::class)->middleware('auth');
 Route::resource('/orders', OrderController::class)->middleware('auth');
 Route::resource('/detail', OrderDetailController::class)->middleware('auth');
 Route::get('/dashboard/orders/{id}', [OrderController::class, 'show']);

@@ -26,7 +26,11 @@ class OrderController extends Controller
                         })
                         ->latest()
                         ->get();
-                        
+            $data = array('title' => 'My Order',
+                    'active' => 'orders',
+                    'itemorder' => $itemorder,
+                );
+                return view('dashboard.orders.index', $data);
         } else {
             // kalo member maka menampilkan cart punyanya sendiri
             $itemorder = Order::whereHas('cart', function($q) use ($itemuser) {
@@ -35,12 +39,12 @@ class OrderController extends Controller
                         })
                         ->latest()
                         ->get();
-        }
-        $data = array('title' => 'My Order',
-                    'active' => 'orders',
-                    'itemorder' => $itemorder,
+            $data = array('title' => 'My Order',
+                'active' => 'orders',
+                'itemorder' => $itemorder,
                 );
-        return view('/orders', $data);
+            return view('orders', $data);
+        }
     }
 
     /**

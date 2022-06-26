@@ -20,24 +20,17 @@
             </a>
             </li>
         <li class="nav-item">
+            <a class="nav-link {{ Request::is('dashboard/categories*') ? 'active': '' }}" href="/dashboard/categories">
+            <span data-feather="list"></span>
+            Categories
+            </a>
+        </li>
+        <li class="nav-item">
         <a class="nav-link {{ Request::is('dashboard/transaksi*') ? 'active' : '' }}" href="/dashboard/transaksi">
             <span data-feather="shopping-cart"></span>
             Transaksi
         </a>
         </li>
-        <li class="nav-item">
-        <a class="nav-link {{ Request::is('dashboard/orders*') ? 'active' : '' }}" href="/dashboard/orders">
-            <span data-feather="check-square"></span>
-            Orders
-        </a>
-        </li>
-        <!-- </li>
-        <li class="nav-item">
-        <a class="nav-link {{ Request::is('dashboard/orders*') ? 'active' : '' }}" href="/dashboard/orders">
-            <span data-feather="users"></span>
-            Orders History
-        </a>
-        </li> -->
         <li class="nav-item">
         <a class="nav-link {{ Request::is('dashboard/laporan*') ? 'active': '' }}" href="/dashboard/laporan">
             <span data-feather="bar-chart-2"></span>
@@ -50,12 +43,6 @@
                 Tables
             </a>
             </li> -->
-        <li class="nav-item">
-            <a class="nav-link {{ Request::is('dashboard/categories*') ? 'active': '' }}" href="/dashboard/categories">
-            <span data-feather="list"></span>
-            Product Categories
-            </a>
-        </li>
     </ul>
 
     </div>
