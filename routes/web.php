@@ -104,9 +104,9 @@ Route::get('/dashboard/orders/{id}', [OrderController::class, 'show']);
 Route::resource('/dashboard/tables', TableController::class)->middleware('auth');
 
   // form laporan
-Route::get('laporan', [LaporanController::class, 'index']);
+Route::get('/dashboard/laporan/', [LaporanController::class, 'index']);
   // proses laporan
-Route::get('proseslaporan', [LaporanController::class, 'proses']);
+Route::get('/dashboard/laporan/proses', [LaporanController::class, 'proses']);
 
 Route::resource('/dashboard/transaksi', TransaksiController::class);
 Route::patch('/checkout/{id}', [CartController::class, 'checkout']);

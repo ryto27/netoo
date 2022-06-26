@@ -126,12 +126,8 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        $user = auth()->user(); //ambil data user yang login
-
-        //ambil data cart dengan id user dan status cart checkout
-        $cart = Cart::where('user_id', $user->id)
-                ->where('status_cart', 'checkout')
-                ->get();
+        //ambil id cart dengan foreign cart_id pada order
+        $cart = Cart::where('id', $order->cart_id)->get();
         //delete cart
         Cart::destroy($cart);
         //delete order

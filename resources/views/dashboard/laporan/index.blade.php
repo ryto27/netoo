@@ -1,7 +1,7 @@
 @extends('dashboard.layouts.main')
 
 @section('container')
-<div class="container-fluid">
+<div class="container-fluid mt-5">
   <div class="row">
     <div class="col col-lg-4 col-md-4">
       <div class="card card-primary card-outline">
@@ -9,7 +9,7 @@
           <h3 class="card-title">Form Laporan</h3>
         </div>
         <div class="card-body">
-          <form action="#">
+          <form action="/dashboard/laporan/proses">
             <div class="form-group">
               <label for="bulan">Bulan</label>
               <select name="bulan" id="bulan" class="form-control">

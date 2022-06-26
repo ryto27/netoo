@@ -16,22 +16,29 @@ class TransaksiController extends Controller
      */
     public function index(Request $request)
     {
-
         $itemuser = auth()->user();
         if ($itemuser->role == 'admin') {
             // kalo admin maka menampilkan semua cart
-            $itemorder = Cart::where('status_cart', 'checkout')
-                                ->get();
+            $itemorder = Order::whereHas('cart', function($q) use ($itemuser) {
+                            $q->where('status_cart', 'checkout');
+                        })
+                        ->latest()
+                        ->get();
+                        
         } else {
             // kalo member maka menampilkan cart punyanya sendiri
-            $itemorder = Cart::where('user_id', $itemuser->id)
-                                ->where('status_cart', 'checkout')
-                                ->get();
+            $itemorder = Order::whereHas('cart', function($q) use ($itemuser) {
+                            $q->where('status_cart', 'checkout');
+                            $q->where('user_id', $itemuser->id);
+                        })
+                        ->latest()
+                        ->get();
         }
-        $data = array('title' => 'Data Transaksi',
+        $data = array('title' => 'Transaksi',
                     'active' => 'transaksi',
                     'itemorder' => $itemorder,
-                    'itemuser' => $itemuser);
+                    'itemuser' => $itemuser,
+                );
         return view('dashboard.transaksi.index', $data);
     }
 
@@ -78,9 +85,14 @@ class TransaksiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $data = array('title' => 'Detail Transaksi');
+        $itemorder = Order::findOrFail($id);
+        $data = array(
+            'title' => 'Detail Transaksi',
+            'active' => 'transaksi',
+            'itemorder' => $itemorder
+    );
         return view('dashboard.transaksi.show', $data);
     }
 
@@ -94,7 +106,7 @@ class TransaksiController extends Controller
     {
         $itemorder = Order::findOrFail($id);
         $data = array(
-            'title' => 'Detail Transaksi',
+            'title' => 'Edit Transaksi',
             'active' => 'transaksi',
             'itemorder' => $itemorder
     );
@@ -110,7 +122,18 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'status_pembayaran' => 'required',
+            'subtotal' => 'required|numeric',
+            'total' => 'required|numeric',
+        ]);
+        $inputan = $request->all();
+        $inputan['status_pembayaran'] = $request->status_pembayaran;
+        $inputan['subtotal'] = str_replace(',','',$request->subtotal);
+        $inputan['total'] = str_replace(',','',$request->total);
+        $itemorder = Order::findOrFail($id);
+        $itemorder->cart->update($inputan);
+        return back()->with('success','Order berhasil diupdate');
     }
 
     /**

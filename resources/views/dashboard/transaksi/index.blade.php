@@ -45,20 +45,20 @@
                     {{ $loop->iteration }}
                   </td>
                   <td>
-                    {{ number_format($order->subtotal, 2) }}
+                    {{ number_format($order->cart->subtotal, 2) }}
                   </td>
                   <td>
-                    {{ number_format($order->total, 2) }}
+                    {{ number_format($order->cart->total, 2) }}
                   </td>                  
                   <td>
-                    {{ $order->status_pembayaran }}
+                    {{ $order->cart->status_pembayaran }}
                   </td>
                   <td>
-                    <a href="{{ route('transaksi.show', $order->id) }}" class="btn btn-sm btn-info mb-2">
+                    <a href="{{ route('transaksi.show', $order->id) }}" class="btn btn-sm btn-primary mb-2">
                       Detail
                     </a>
                     @if($itemuser->role == 'admin')
-                    <a href="/dashboard/transaksi/{{$order->id }}/edit" class="btn btn-sm btn-primary mb-2">
+                    <a href="/dashboard/transaksi/{{$order->id }}/edit" class="btn btn-sm btn-warning mb-2">
                       Edit
                     </a>
                     @endif

@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.main')
 @section('container')
-<div class="container-fluid">
+<div class="container-fluid mt-5">
   <div class="row">
     <div class="col col-lg-8 col-md-8 mb-2">
       <div class="card">
@@ -15,14 +15,12 @@
                   <th>
                     No
                   </th>
-
                   <th>
                     Nama
                   </th>
                   <th>
                     Harga
                   </th>
-
                   <th>
                     Qty
                   </th>
@@ -35,10 +33,10 @@
               @foreach($itemorder->cart->detail as $detail)
                 <tr>
                   <td>
-                  {{ $no++ }}
+                  {{ $loop->iteration }}
                   </td>
                   <td>
-                  {{ $detail->produk->nama_produk }}
+                  {{ $detail->product->name }}
                   </td>
                   <td class="text-right">
                   {{ number_format($detail->harga, 2) }}
@@ -70,37 +68,7 @@
           <a href="{{ route('transaksi.index') }}" class="btn btn-sm btn-danger">Tutup</a>
         </div>
       </div>
-      <div class="card">
-        <div class="card-header">Alamat Pengiriman</div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-stripped">
-              <thead>
-                <tr>
-                  <th>Nama Penerima</th>
-                  <th>Alamat</th>
-                  <th>No tlp</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    {{ $itemorder->nama_penerima }}
-                  </td>
-                  <td>
-                    {{ $itemorder->alamat }}<br />
-                    {{ $itemorder->kelurahan}}, {{ $itemorder->kecamatan}}<br />
-                    {{ $itemorder->kota}}, {{ $itemorder->provinsi}} - {{ $itemorder->kodepos}}
-                  </td>
-                  <td>
-                    {{ $itemorder->no_tlp }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+
     </div>
     <div class="col col-lg-4 col-md-4">
       <div class="card">
@@ -147,38 +115,6 @@
                 </tr>
                 <tr>
                   <td>
-                    Diskon
-                  </td>
-                  <td>
-                    <input type="text" name="diskon" id="diskon" class="form-control" value="{{ $itemorder->cart->diskon }}">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Ongkir
-                  </td>
-                  <td>
-                    <input type="text" name="ongkir" id="ongkir" class="form-control" value="{{ $itemorder->cart->ongkir }}">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Ekspedisi
-                  </td>
-                  <td>
-                    <input type="text" name="ekspedisi" id="ekspedisi" class="form-control" value="{{ $itemorder->cart->ekspedisi }}">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    No. Resi
-                  </td>
-                  <td>
-                    <input type="text" name="no_resi" id="no_resi" class="form-control" value="{{ $itemorder->cart->no_resi }}">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
                     Status Pembayaran
                   </td>
                   <td>
@@ -190,7 +126,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Status Pengiriman
+                    Status Order
                   </td>
                   <td>
                     <select name="status_pengiriman" id="status_pengiriman" class="form-control">
