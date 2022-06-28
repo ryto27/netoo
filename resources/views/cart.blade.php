@@ -78,15 +78,16 @@
         </div>
         
     </div>
-    <div class="col col-md-4">
+    <div class="col">
         <div class="card">
             <div class="card-header">
                 Ringkasan
             </div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-responsive">
                 <tr>
                     <td>Total Qty</td>
+                    <td>:</td>
                     <td class="text-right">
                     {{ $itemcart->total_qty }}
                     </td>
@@ -94,28 +95,26 @@
 
                 <tr>
                     <td>Total</td>
+                    <td>:</td>
                     <td class="text-right">
                     {{ number_format($itemcart->total, 2) }}
                     </td>
                 </tr>
                 </table>
             </div>
-            <div class="card-footer">
-                <div class="row">
-                <div class="col">
+                <div class="card-footer">
+                    <div class="d-flex justify-content-around">
                     <form action="/checkout/{{ $itemcart->id }}" method="post">
-                        @csrf
-                        @method('patch')
+                    @csrf
+                    @method('patch')
                         <button class="btn btn-primary btn-block">Checkout</button>
                     </form>
-                </div>
-                <div class="col">
                     <form action="/kosongkan/{{ $itemcart->id }}" method="post">
                     @csrf
                     @method('patch')
-                    <button type="submit" class="btn btn-danger btn-block">Kosongkan</button>
+                        <button type="submit" class="btn btn-danger btn-block">Kosongkan</button>
                     </form>
-                </div>
+                    </div>  
                 </div>
             </div>
         </div>

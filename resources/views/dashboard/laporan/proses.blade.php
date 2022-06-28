@@ -2,7 +2,7 @@
 
 @section('container')
 
-<div class="container-fluid">
+<div class="container-fluid mt-5">
   <div class="row">
     <div class="col">
       <div class="card card-primary card-outline">
@@ -47,7 +47,7 @@
                   <thead>
                     <tr>
                       <th>No</th>
-                      <th>Subtotal</th>
+                      <th>Qty</th>
                       <th>Total</th>
                     </tr>
                   </thead>
@@ -57,9 +57,8 @@
                       <td>{{ $loop->iteration }}</td>
 
                       <td>
-                      {{ number_format($transaksi->cart->subtotal, 2) }}
+                      {{ $transaksi->cart->total_qty }}
                       </td>
-                      <td>
                       <td>
                       {{ number_format($transaksi->cart->total, 2) }}
                       </td>

@@ -69,7 +69,7 @@
                   <td class="text-right">{{ $itemorder->cart->status_pembayaran }}</td>
                 </tr>
                 <tr>
-                  <td>Status Order/td>
+                  <td>Status Order</td>
                   <td>belum</td>
                 </tr>
               </tbody>
