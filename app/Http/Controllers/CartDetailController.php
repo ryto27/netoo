@@ -65,11 +65,12 @@ class CartDetailController extends Controller
         $harga = $itemproduct->price;//ambil harga produk
         $subtotal = $qty * $harga;
 
+
         if ($cekdetail) {
             // update detail di table cart_detail
             $cekdetail->updatedetail($cekdetail, $qty, $harga);
             // update subtotal dan total di table cart
-            $cekdetail->cart->updatetotal($cekdetail->cart, $subtotal);
+            $cekdetail->cart->updatetotal($cekdetail->cart, $qty, $subtotal);
         } else {
             $inputan = $request->all();
             $inputan['cart_id'] = $itemcart->id;
@@ -79,7 +80,7 @@ class CartDetailController extends Controller
             $inputan['subtotal'] = $harga * $qty;
             $itemdetail = CartDetail::create($inputan);
             // update subtotal dan total di table cart
-            $itemdetail->cart->updatetotal($itemdetail->cart, $subtotal);
+            $itemdetail->cart->updatetotal($itemdetail->cart, $qty, $subtotal);
         }
         return back()->with('success', 'Produk berhasil ditambahkan ke cart');
     }
@@ -123,7 +124,7 @@ class CartDetailController extends Controller
             $qty = 1;
             $itemdetail->updatedetail($itemdetail, $qty, $itemdetail->harga);
             // update total cart
-            $itemdetail->cart->updatetotal($itemdetail->cart, $itemdetail->harga);
+            $itemdetail->cart->updatetotal($itemdetail->cart, $qty, $itemdetail->harga);
             return back()->with('success', 'Item berhasil diupdate');
         }
         if ($param == 'kurang') {
@@ -131,7 +132,7 @@ class CartDetailController extends Controller
             $qty = 1;
             $itemdetail->updatedetail($itemdetail, '-'.$qty, $itemdetail->harga);
             // update total cart
-            $itemdetail->cart->updatetotal($itemdetail->cart, '-'. $itemdetail->harga);
+            $itemdetail->cart->updatetotal($itemdetail->cart, '-'.$qty, '-'. $itemdetail->harga);
             return back()->with('success', 'Item berhasil diupdate');
         }
     }
@@ -146,7 +147,7 @@ class CartDetailController extends Controller
     {
         $itemdetail = CartDetail::findOrFail($id);
         // update total cart dulu
-        $itemdetail->cart->updatetotal($itemdetail->cart, '-'.$itemdetail->subtotal);
+        $itemdetail->cart->updatetotal($itemdetail->cart,'-'.$itemdetail->qty, '-'.$itemdetail->subtotal);
 
         if ($itemdetail->delete()) {
             return back()->with('success', 'Item berhasil dihapus');

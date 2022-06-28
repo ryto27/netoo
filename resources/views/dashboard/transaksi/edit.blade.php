@@ -9,56 +9,32 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>
-                    No
-                  </th>
-                  <th>
-                    Nama
-                  </th>
-                  <th>
-                    Harga
-                  </th>
-                  <th>
-                    Qty
-                  </th>
-                  <th>
-                    Subtotal
-                  </th>
+                  <th>No</th>
+                  <th>Nama</th>
+                  <th>Harga</th>
+                  <th>Qty</th>
+                  <th>Subtotal</th>
                 </tr>
               </thead>
               <tbody>
-              @foreach($itemorder->cart->detail as $detail)
+                  @foreach($itemorder->cart->detail as $detail)
                 <tr>
-                  <td>
-                  {{ $loop->iteration }}
-                  </td>
-                  <td>
-                  {{ $detail->product->name }}
-                  </td>
-                  <td class="text-right">
-                  {{ number_format($detail->harga, 2) }}
-                  </td>
-
-                  <td class="text-right">
-                  {{ $detail->qty }}
-                  </td>
-                  <td class="text-right">
-                  {{ number_format($detail->subtotal, 2) }}
-                  </td>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $detail->product->name }}</td>
+                  <td class="text-right">{{ number_format($detail->harga, 2) }}</td>
+                  <td class="text-right">{{ $detail->qty }}</td>
+                  <td class="text-right">{{ number_format($detail->subtotal, 2) }}</td>
                 </tr>
-              @endforeach
+                @endforeach
+
                 <tr>
-                  <td colspan="6">
-                    <b>Total</b>
-                  </td>
-                  <td class="text-right">
-                    <b>
-                    {{ number_format($itemorder->cart->total, 2) }}
-                    </b>
-                  </td>
+                  
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td><strong>{{ $itemorder->cart->total_qty }}</strong></td>
+                  <td class="text-right"><strong>{{ number_format($itemorder->cart->total, 2) }}</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -92,59 +68,55 @@
               </div>
           @endif
           <div class="table-responsive">
-            <table class="table">
-              <form action="{{ route('transaksi.update', $itemorder->id) }}" method='post'>
+            <form action="{{ route('transaksi.update', $itemorder->id) }}" method='post'>
               @csrf
               {{ method_field('patch') }}
-              <tbody>
-                <tr>
-                  <td>
-                    Total
-                  </td>
-                  <td>
-                    <input type="text" name="total" id="total" class="form-control" value="{{ $itemorder->cart->total }}">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Subtotal
-                  </td>
-                  <td>
-                  <input type="text" name="subtotal" id="subtotal" class="form-control" value="{{ $itemorder->cart->subtotal }}">
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Status Pembayaran
-                  </td>
-                  <td>
-                    <select name="status_pembayaran" id="status_pembayaran" class="form-control">
-                      <option value="sudah" {{ $itemorder->cart->status_pembayaran == 'sudah' ? 'selected':'' }}>Sudah Dibayar</option>
-                      <option value="belum" {{ $itemorder->cart->status_pembayaran == 'belum' ? 'selected':'' }}>Belum Dibayar</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Status Order
-                  </td>
-                  <td>
-                    <select name="status_pengiriman" id="status_pengiriman" class="form-control">
-                      <option value="sudah" {{ $itemorder->cart->status_pengiriman == 'sudah' ? 'selected':'' }}>Sudah</option>
-                      <option value="belum" {{ $itemorder->cart->status_pengiriman == 'belum' ? 'selected':'' }}>Belum</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                  </td>
-                  <td>
-                    <button type="submit" class="btn btn-primary">Update</button>
-                  </td>
-                </tr>
-              </tbody>
-              </form>
-            </table>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td>
+                      Total
+                    </td>
+                    <td>
+                      <input type="text" name="total" id="total" class="form-control" value="{{ $itemorder->cart->total }}">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Total Items
+                    </td>
+                    <td>
+                    <input type="text" name="total_qty" id="subtotal" class="form-control" value="{{ $itemorder->cart->total_qty }}">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Status Pembayaran
+                    </td>
+                    <td>
+                      <select name="status_pembayaran" id="status_pembayaran" class="form-control">
+                        <option value="sudah" {{ $itemorder->cart->status_pembayaran == 'sudah' ? 'selected':'' }}>Sudah Dibayar</option>
+                        <option value="belum" {{ $itemorder->cart->status_pembayaran == 'belum' ? 'selected':'' }}>Belum Dibayar</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Status Order
+                    </td>
+                    <td>
+                      <select name="status_pengiriman" id="status_pengiriman" class="form-control">
+                        <option value="sudah" {{ $itemorder->cart->status_pengiriman == 'sudah' ? 'selected':'' }}>Sudah</option>
+                        <option value="belum" {{ $itemorder->cart->status_pengiriman == 'belum' ? 'selected':'' }}>Belum</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+            </form>
           </div>
         </div>
       </div>

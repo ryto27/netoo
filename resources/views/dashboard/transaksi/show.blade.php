@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
               <thead>
                 <tr>
                   <th>No</th>
@@ -32,14 +32,10 @@
                 @endforeach
 
                 <tr>
-                  <td colspan="6">
-                    <b>Total</b>
-                  </td>
-                  <td class="text-right">
-                    <b>
-                    {{ number_format($itemorder->cart->total, 2) }}
-                    </b>
-                  </td>
+                  
+                  <td colspan="3"><strong>Total</strong></td>
+                  <td><strong>{{ $itemorder->cart->total_qty }}</strong></td>
+                  <td class="text-right"><strong>{{ number_format($itemorder->cart->total, 2) }}</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -47,6 +43,7 @@
         </div>
         <div class="card-footer">
           <a href="/dashboard/transaksi/" class="btn btn-sm btn-danger">Tutup</a>
+          <a href="/dashboard/transaksi/{{$itemorder->id }}/edit" class="btn btn-sm btn-warning">Edit</a>
         </div>
       </div>
     </div>
@@ -60,68 +57,20 @@
             <table class="table">
               <tbody>
                 <tr>
-                  <td>
-                    Total
-                  </td>
-                  <td class="text-right">
-                    {{ number_format($itemorder->cart->total, 2) }}
-                  </td>
+                  <td>Total Qty</td>
+                  <td class="text-right">{{ $itemorder->cart->total_qty }}</td>
                 </tr>
                 <tr>
-                  <td>
-                    Subtotal
-                  </td>
-                  <td class="text-right">
-                  {{ number_format($itemorder->cart->subtotal, 2) }}
-                  </td>
+                  <td>Total</td>
+                  <td class="text-right">{{ number_format($itemorder->cart->total, 2) }}</td>
                 </tr>
                 <tr>
-                  <td>
-                    Diskon
-                  </td>
-                  <td class="text-right">
-                  {{ number_format($itemorder->cart->diskon, 2) }}
-                  </td>
+                  <td>Status Pembayaran</td>
+                  <td class="text-right">{{ $itemorder->cart->status_pembayaran }}</td>
                 </tr>
                 <tr>
-                  <td>
-                    Ongkir
-                  </td>
-                  <td class="text-right">
-                  {{ number_format($itemorder->cart->ongkir, 2) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Ekspedisi
-                  </td>
-                  <td class="text-right">
-                  {{ number_format($itemorder->cart->ekspedisi, 2) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    No. Resi
-                  </td>
-                  <td class="text-right">
-                  {{ number_format($itemorder->cart->no_resi, 2) }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Status Pembayaran
-                  </td>
-                  <td class="text-right">
-                  {{ $itemorder->cart->status_pembayaran }}
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Status Pengiriman
-                  </td>
-                  <td class="text-right">
-                  {{ $itemorder->cart->status_pengiriman }}
-                  </td>
+                  <td>Status Order/td>
+                  <td>belum</td>
                 </tr>
               </tbody>
             </table>

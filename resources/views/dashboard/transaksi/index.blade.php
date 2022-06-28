@@ -1,77 +1,45 @@
+
+
 @extends('dashboard.layouts.main')
 
 @section('container')
-<div class="container-fluid mt-5">
-  <div class="row">
-    <div class="col">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">
-            Data Transaksi
-          </h3>
-        </div>
-        <div class="card-body">
-          <!-- digunakan untuk menampilkan pesan error atau sukses -->
-          @if(count($errors) > 0)
-          @foreach($errors->all() as $error)
-              <div class="alert alert-warning">{{ $error }}</div>
-          @endforeach
-          @endif
-          @if ($message = Session::get('error'))
-              <div class="alert alert-warning">
-                  <p>{{ $message }}</p>
-              </div>
-          @endif
-          @if ($message = Session::get('success'))
-              <div class="alert alert-success">
-                  <p>{{ $message }}</p>
-              </div>
-          @endif
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Sub Total</th>
-                  <th>Total</th>
-                  <th>Status Pembayaran</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-              @foreach($itemorder as $order)
-                <tr>
-                  <td>
-                    {{ $loop->iteration }}
-                  </td>
-                  <td>
-                    {{ number_format($order->cart->subtotal, 2) }}
-                  </td>
-                  <td>
-                    {{ number_format($order->cart->total, 2) }}
-                  </td>                  
-                  <td>
-                    {{ $order->cart->status_pembayaran }}
-                  </td>
-                  <td>
-                    <a href="{{ route('transaksi.show', $order->id) }}" class="btn btn-sm btn-primary mb-2">
-                      Detail
-                    </a>
-                    @if($itemuser->role == 'admin')
-                    <a href="/dashboard/transaksi/{{$order->id }}/edit" class="btn btn-sm btn-warning mb-2">
-                      Edit
-                    </a>
-                    @endif
-                  </td>
-                </tr>
-              @endforeach
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Transaction</h1>
 </div>
 
+@if(session()->has('success'))
+            <div class="alert alert-success col-lg-8" role="alert">
+                {{ session('success') }}
+            </div>
+@endif
+
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Datetime</th>
+                <th scope="col">Total Items</th>
+                <th scope="col">Total</th>
+                <th scope="col">Status Pembayaran</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($itemorder as $order)
+            <tr class="align-middle">
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $order->created_at }}</td>
+                <td>{{ $order->cart->total_qty }}</td>
+                <td>{{ number_format($order->cart->total, 2) }}</td>
+                <td>{{ $order->cart->status_pembayaran }}</td>
+                <td>
+                    <a href="{{ route('transaksi.show', $order->id) }}" class="btn btn-sm btn-primary">Detail</a>
+                    <a href="/dashboard/transaksi/{{$order->id }}/edit" class="btn btn-sm btn-warning">Edit</a>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    </div>
 @endsection

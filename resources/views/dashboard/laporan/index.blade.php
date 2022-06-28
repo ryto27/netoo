@@ -30,6 +30,7 @@
             <div class="form-group">
               <label for="tahun">Tahun</label>
               <select name="tahun" id="tahun" class="form-control">
+              <option value="<?php echo(date('Y')); ?>" selected><?php echo(date('Y')); ?></option>
                 @for($a = 2019; $a <= 2050; $a++)
                 <option value="{{$a}}">{{$a}}</option>
                 @endfor

@@ -124,12 +124,12 @@ class TransaksiController extends Controller
     {
         $this->validate($request,[
             'status_pembayaran' => 'required',
-            'subtotal' => 'required|numeric',
+            'total_qty' => 'required|numeric',
             'total' => 'required|numeric',
         ]);
         $inputan = $request->all();
         $inputan['status_pembayaran'] = $request->status_pembayaran;
-        $inputan['subtotal'] = str_replace(',','',$request->subtotal);
+        $inputan['total_qty'] = str_replace(',','',$request->total_qty);
         $inputan['total'] = str_replace(',','',$request->total);
         $itemorder = Order::findOrFail($id);
         $itemorder->cart->update($inputan);

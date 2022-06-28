@@ -121,7 +121,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => 4,
             'status_cart' => 'cart',
             'status_pembayaran' => 'belum',
-            'subtotal' => 8000,
+            'total_qty' => 2,
             'total' => 8000,
         ]);
 

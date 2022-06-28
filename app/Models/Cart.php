@@ -20,8 +20,8 @@ class Cart extends Model
         return $this->hasMany(CartDetail::class, 'cart_id');
     }
 
-    public function updatetotal($itemcart, $subtotal) {
-        $this->attributes['subtotal'] = $itemcart->subtotal + $subtotal;
+    public function updatetotal($itemcart, $qty, $subtotal) {
+        $this->attributes['total_qty'] = $itemcart->total_qty + $qty;
         $this->attributes['total'] = $itemcart->total + $subtotal;
         self::save();
     }

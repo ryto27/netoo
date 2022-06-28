@@ -3,7 +3,7 @@
 @section('container')
 
 
-    <h1 class="mb-5 text-center">{{ $title }}</h1>
+    <h1 class="mb-4 text-center">{{ $title }}</h1>
 
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -19,13 +19,19 @@
                     <button class="btn btn-danger" type="submit">Search</button>
                 </div>
             </form>
-        </div>
-    </div>
-    @if(session()->has('success'))
+            @if(session()->has('success'))
             <div class="d-flex justify-content-center alert alert-success " role="alert">
                 {{ session('success') }}
             </div>
-@endif
+            @endif
+        </div>
+    </div>
+    <div class="d-flex justify-content-center mb-3">
+        <a href="/products" class="btn btn-danger m-1">Semua</a>
+        @foreach ($categories as $category)
+        <a href="/products?category={{ $category->title }}" class="btn btn-outline-danger m-1">{{ $category->title }}</a>
+        @endforeach
+    </div>
 
 @if ( $products->count() )
 

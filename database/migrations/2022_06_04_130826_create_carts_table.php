@@ -18,7 +18,7 @@ class CreateCartsTable extends Migration
             $table->foreignId('user_id');
             $table->string('status_cart');// ada 2 yaitu cart, checkout
             $table->string('status_pembayaran');// ada 2 sudah dan belum
-            $table->double('subtotal', 12, 2)->default(0);
+            $table->integer('total_qty')->default(0);
             $table->double('total', 12, 2)->default(0);
             $table->timestamps();
         });

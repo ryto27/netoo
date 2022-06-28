@@ -10,7 +10,7 @@
     {{ session('success') }}
             </div>
 @endif
-@if ($itemcart)
+@if ($itemcart && $itemcart->detail->count())
 <div class="container">
     <div class="row">
     <div class="table-responsive col-lg-8">
@@ -86,9 +86,9 @@
             <div class="card-body">
                 <table class="table">
                 <tr>
-                    <td>Subtotal</td>
+                    <td>Total Qty</td>
                     <td class="text-right">
-                    {{ number_format($itemcart->subtotal, 2) }}
+                    {{ $itemcart->total_qty }}
                     </td>
                 </tr>
 
@@ -113,7 +113,6 @@
                     <form action="/kosongkan/{{ $itemcart->id }}" method="post">
                     @csrf
                     @method('patch')
-
                     <button type="submit" class="btn btn-danger btn-block">Kosongkan</button>
                     </form>
                 </div>

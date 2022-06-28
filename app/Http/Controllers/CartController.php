@@ -38,7 +38,7 @@ class CartController extends Controller
     public function kosongkan($id) {
         $itemcart = Cart::findOrFail($id);
         $itemcart->detail()->delete();//hapus semua item di cart detail
-        $itemcart->updatetotal($itemcart, '-'.$itemcart->subtotal);
+        $itemcart->updatetotal($itemcart, '-'.$itemcart->total_qty, '-'.$itemcart->total);
         return back()->with('success', 'Cart berhasil dikosongkan');
     }
 
