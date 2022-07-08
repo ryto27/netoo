@@ -32,7 +32,9 @@
                     Hi, {{ auth()->user()->name }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <!-- <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-sidebar-reverse"></i> My Dashboard</a></li> -->
+                    @if(auth()->user()->role == 'admin')
+                    <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-sidebar-reverse"></i> My Dashboard</a></li>
+                    @endif
                     <li><hr class="dropdown-divider"></li>
                     <li>
                         <form action="/logout" method="post">

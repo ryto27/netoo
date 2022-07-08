@@ -36,6 +36,9 @@
                 <td>
                     <a href="{{ route('transaksi.show', $order->id) }}" class="btn btn-sm btn-primary">Detail</a>
                     <a href="/dashboard/transaksi/{{$order->id }}/edit" class="btn btn-sm btn-warning">Edit</a>
+                    @if($order->cart->status_pembayaran == 'sudah')
+                    <a href="" class="btn btn-sm btn-success" onclick="return confirm('Selesaikan Transaksi?')">Finish</a>
+                    @endif
                 </td>
             </tr>
             @endforeach

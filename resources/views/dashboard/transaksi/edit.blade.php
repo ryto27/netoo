@@ -2,7 +2,7 @@
 @section('container')
 <div class="container-fluid mt-5">
   <div class="row">
-    <div class="col col-lg-8 col-md-8 mb-2">
+    <div class="col col-lg-8 col-md-8 mb-3">
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Item</h3>
@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="card-footer">
-          <a href="{{ route('transaksi.index') }}" class="btn btn-sm btn-danger">Tutup</a>
+          <a href="{{ route('transaksi.index') }}" class="btn form-control btn-danger">Close</a>
         </div>
       </div>
 
@@ -78,7 +78,7 @@
                       Total
                     </td>
                     <td>
-                      <input type="text" name="total" id="total" class="form-control" value="{{ $itemorder->cart->total }}">
+                      <input type="text" name="total" id="total" class="form-control" value="{{ number_format($itemorder->cart->total, 2) }}">
                     </td>
                   </tr>
                   <tr>
@@ -95,8 +95,8 @@
                     </td>
                     <td>
                       <select name="status_pembayaran" id="status_pembayaran" class="form-control">
-                        <option value="sudah" {{ $itemorder->cart->status_pembayaran == 'sudah' ? 'selected':'' }}>Sudah Dibayar</option>
-                        <option value="belum" {{ $itemorder->cart->status_pembayaran == 'belum' ? 'selected':'' }}>Belum Dibayar</option>
+                        <option value="sudah" {{ $itemorder->cart->status_pembayaran == 'sudah' ? 'selected':'' }}>Sudah</option>
+                        <option value="belum" {{ $itemorder->cart->status_pembayaran == 'belum' ? 'selected':'' }}>Belum</option>
                       </select>
                     </td>
                   </tr>
@@ -113,12 +113,12 @@
                   </tr>
                 </tbody>
               </table>
-              <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary">Update</button>
             </div>
-            </form>
           </div>
-        </div>
+          <div class="card-footer">
+            <button type="submit" class="btn form-control btn-primary">Update</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

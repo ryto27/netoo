@@ -11,7 +11,6 @@ use App\Http\Controllers\DashboardPostController;
 use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailController;
-use App\Http\Controllers\DashboardOrderController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\TableController;
