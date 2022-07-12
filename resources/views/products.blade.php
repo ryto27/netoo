@@ -27,10 +27,11 @@
         </div>
     </div>
     <div class="d-flex justify-content-center mb-3">
-        <a href="/products" class="btn btn-danger m-1">Semua</a>
+        <a href="/products" class="btn {{ ($uri === '/products') ? 'btn' : 'btn-outline' }}-danger m-1">Semua</a>
         @foreach ($categories as $category)
-        <a href="/products?category={{ $category->title }}" class="btn btn-outline-danger m-1">{{ $category->title }}</a>
+        <a href="/products?category={{ $category->title }}" class="btn {{ ($uri === '/products?category='.$category->title) ? 'btn' : 'btn-outline' }}-danger m-1">{{ $category->title }}</a>
         @endforeach
+        <a href="/categories" class="btn btn-outline-danger m-1">More...</a>
     </div>
 
 @if ( $products->count() )
