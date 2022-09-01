@@ -12,11 +12,11 @@ use App\Http\Controllers\DashboardProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\OrderDetailController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\MemberController;
 
 
 
@@ -97,7 +97,6 @@ Route::patch('/kosongkan/{id}', [CartController::class, 'kosongkan']);
 
 Route::resource('/dashboard/orders', OrderController::class)->middleware('auth');
 Route::resource('/orders', OrderController::class)->middleware('auth');
-Route::resource('/detail', OrderDetailController::class)->middleware('auth');
 Route::get('/dashboard/orders/{id}', [OrderController::class, 'show']);
 
 Route::resource('/dashboard/tables', TableController::class)->middleware('auth');
@@ -109,3 +108,15 @@ Route::get('/dashboard/laporan/proses', [LaporanController::class, 'proses']);
 
 Route::resource('/dashboard/transaksi', TransaksiController::class);
 Route::patch('/checkout/{id}', [CartController::class, 'checkout']);
+
+Route::get('/member', [MemberController::class, 'index']);
+
+Route::get('/show', [MemberController::class, 'getMembers']);
+
+Route::post('/save', [MemberController::class, 'save']);
+
+Route::post('/delete', [MemberController::class, 'delete']);
+
+Route::post('/update', [MemberController::class, 'update']);
+
+Route::post('/check', [MemberController::class, 'check']);
